@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block title %}Заказ #{{ order.id }}{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h3>Заказ №{{ order.id }}</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Клиент:</strong> {{ order.client.full_name }}</p>
+        <p><strong>Устройство:</strong> {{ order.device|default:"Не указано" }}</p>
+        <p><strong>Статус:</strong> 
+            {% if order.status == 'pending' %}⏳ В ожидании
+            {% elif order.status == 'in_progress' %}🔧 В работе
+            {% elif order.status == 'completed' %}✅ Выполнен
+            {% else %}❌ Отменен{% endif %}
+        </p>
+        <p><strong>Дата заказа:</strong> {{ order.order_date|date:"d/m/Y H:i" }}</p>
+        <p><strong>Описание проблемы:</strong> {{ order.client_problem }}</p>
+        
+        <h4 class="mt-4">Услуги</h4>
+        <ul>
+            {% for item in order.orderservice_set.all %}
+            <li>{{ item.service.name }} × {{ item.quantity }} = {{ item.service.price|floatformat:2 }} руб.</li>
+            {% empty %}
+            <li>Нет услуг</li>
+            {% endfor %}
+        </ul>
+        
+        <h4>Итоговая стоимость</h4>
+        <p class="h3 text-success">{{ order.total_cost|floatformat:2 }} руб.</p>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'cabinet' %}" class="btn btn-secondary">← В личный кабинет</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block title %}Вакансии{% endblock %}
+{% block content %}
+<h2>Актуальные вакансии</h2>
+<table class="table table-striped">
+    <thead>
+        <tr><th>Должность</th><th>Описание</th><th>Зарплата</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Мастер по ремонту ПК</td><td>Опыт от 1 года, знание комплектующих</td><td>1500-2000 руб.</td></tr>
+        <tr><td>Специалист по настройке ПО</td><td>Знание Windows, Linux, офисных программ</td><td>1200-1700 руб.</td></tr>
+        <tr><td>Администратор</td><td>Работа с клиентами, выдача заказов</td><td>1000-1300 руб.</td></tr>
+    </tbody>
+</table>
+{% endblock %}
